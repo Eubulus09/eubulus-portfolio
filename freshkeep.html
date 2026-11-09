@@ -1,0 +1,401 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#101114" />
+    <meta name="description" content="FreshKeep is a Windows desktop app that tracks the food in your home, flags what expires next, and turns waste into a clear report. A case study by Emmanuel Eubulus." />
+    <title>FreshKeep — Case Study | Emmanuel Eubulus</title>
+    <link rel="canonical" href="https://eubulus09.github.io/eubulus-portfolio/freshkeep.html" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="article" />
+    <meta property="og:title" content="FreshKeep — Case Study" />
+    <meta property="og:description" content="A Windows desktop app that helps households waste less food. Built in C++17 with the Win32 API." />
+    <meta property="og:url" content="https://eubulus09.github.io/eubulus-portfolio/freshkeep.html" />
+    <meta property="og:image" content="https://eubulus09.github.io/eubulus-portfolio/og-image.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet" />
+    <style>
+:root {
+  --ink: #101114;
+  --muted: #6f737c;
+  --line: rgba(16, 17, 20, 0.16);
+  --red: #e5383b;
+  --blue: #1d52d6;
+  --paper: #f7f7f5;
+  --soft: #e9ebf2;
+  font-family: 'DM Sans', sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  min-width: 320px;
+  background: var(--paper);
+  color: var(--ink);
+}
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+svg { width: 18px; height: 18px; }
+main { overflow-x: clip; }
+
+a:focus-visible {
+  outline: 2px solid var(--blue);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 20;
+  padding: 12px 18px;
+  background: var(--ink);
+  color: white;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.skip-link:focus { left: 16px; top: 16px; }
+
+.shell { width: min(1100px, calc(100% - 96px)); margin: 0 auto; }
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  height: 96px;
+}
+.wordmark {
+  font-family: 'Fraunces', serif;
+  font-size: 30px;
+  letter-spacing: -1px;
+}
+.wordmark span { color: var(--red); }
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 0.2s ease;
+}
+.back-link:hover { color: var(--ink); }
+
+.hero { padding: 46px 0 78px; }
+.eyebrow,
+.section-kicker {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin: 0;
+}
+.eyebrow span { color: var(--red); }
+.hero h1 {
+  font-size: clamp(62px, 10vw, 132px);
+  line-height: 0.9;
+  letter-spacing: -5px;
+  font-weight: 400;
+  margin: 26px 0 0;
+}
+.intro {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 32px 64px;
+  align-items: end;
+  margin-top: 38px;
+}
+.intro p {
+  max-width: 560px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 18px;
+  line-height: 1.55;
+}
+.facts {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px 28px;
+  margin: 0;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+.facts div { margin: 0; }
+.facts dt {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 6px;
+}
+.facts dd { margin: 0; font-size: 14px; line-height: 1.4; }
+
+.figure {
+  margin: 0 0 96px;
+}
+.figure-frame {
+  background: #0f1115;
+  border: 1px solid rgba(16, 17, 20, 0.08);
+  border-radius: 6px;
+  padding: 22px;
+  box-shadow: 0 30px 70px -40px rgba(16, 17, 20, 0.55);
+}
+.figure img { width: 100%; height: auto; border-radius: 3px; }
+.figure figcaption {
+  margin-top: 16px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.section {
+  display: grid;
+  grid-template-columns: 0.55fr 1.45fr;
+  gap: 32px 64px;
+  padding: 40px 0;
+  border-top: 1px solid var(--line);
+}
+.section h2 {
+  font-size: clamp(28px, 3.2vw, 38px);
+  line-height: 1.02;
+  letter-spacing: -1.5px;
+  font-weight: 400;
+  margin: 10px 0 0;
+  font-family: 'Fraunces', serif;
+}
+.section-body p {
+  margin: 0 0 18px;
+  max-width: 640px;
+  line-height: 1.65;
+  color: #3c3f46;
+}
+.section-body p:last-child { margin-bottom: 0; }
+
+.feature-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 36px;
+}
+.feature-list li {
+  padding: 13px 0;
+  border-top: 1px solid var(--line);
+  font-size: 14px;
+  line-height: 1.45;
+}
+.feature-list strong { font-weight: 600; }
+
+.note-band {
+  background: var(--ink);
+  color: white;
+  padding: 70px 0;
+  margin-top: 60px;
+}
+.note-band .shell {
+  display: grid;
+  grid-template-columns: 0.55fr 1.45fr;
+  gap: 32px 64px;
+}
+.note-band .section-kicker { color: #9ca1ac; }
+.note-band p {
+  margin: 0 0 16px;
+  color: #c8cbd3;
+  line-height: 1.65;
+  max-width: 640px;
+}
+.note-band p:last-child { margin-bottom: 0; }
+.note-band .accent { color: #6d9aff; font-family: 'Fraunces', serif; }
+
+.links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 64px 0 40px;
+}
+.links a {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 15px 22px;
+  border: 1px solid var(--line);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.links a:hover { background: var(--ink); color: white; border-color: var(--ink); }
+.links a.primary { background: var(--red); border-color: var(--red); color: white; }
+.links a.primary:hover { background: var(--ink); border-color: var(--ink); }
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 22px;
+  padding: 28px 0 54px;
+  border-top: 1px solid var(--line);
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.footer a { display: inline-flex; align-items: center; gap: 8px; }
+.footer a:hover { color: var(--blue); }
+
+@media (max-width: 760px) {
+  .shell { width: min(100% - 28px, 1100px); }
+  .nav { height: auto; padding: 22px 0; }
+  .hero { padding: 30px 0 52px; }
+  .hero h1 { letter-spacing: -3px; }
+  .intro, .section, .note-band .shell { grid-template-columns: 1fr; }
+  .facts { margin-top: 8px; }
+  .figure { margin-bottom: 64px; }
+  .figure-frame { padding: 12px; }
+  .feature-list { grid-template-columns: 1fr; }
+  .note-band { padding: 52px 0; margin-top: 40px; }
+  .footer { flex-direction: column; align-items: flex-start; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+  }
+}
+    </style>
+  </head>
+  <body>
+    <main>
+      <a class="skip-link" href="#problem">Skip to case study</a>
+      <nav class="nav shell" aria-label="Case study navigation">
+        <a class="wordmark" href="index.html" aria-label="Emmanuel Eubulus home">EE<span>.</span></a>
+        <a class="back-link" href="index.html#work">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17 17 7 7M15 7H7v8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          Back to portfolio
+        </a>
+      </nav>
+
+      <header class="hero shell">
+        <p class="eyebrow"><span>Case study</span> · Windows desktop · 2026</p>
+        <h1>FreshKeep</h1>
+        <div class="intro">
+          <p>A small Windows app that tracks the food in your home, shows what expires next, and turns what gets thrown away into a report you can actually learn from.</p>
+          <dl class="facts">
+            <div><dt>Role</dt><dd>Design &amp; development</dd></div>
+            <div><dt>Platform</dt><dd>Windows 10 / 11</dd></div>
+            <div><dt>Stack</dt><dd>C++17, Win32 API</dd></div>
+            <div><dt>Status</dt><dd>Shipped &amp; in use</dd></div>
+          </dl>
+        </div>
+      </header>
+
+      <figure class="figure shell">
+        <div class="figure-frame">
+          <img src="src/freshkeep.png" alt="FreshKeep inventory window: a list of food items with quantities, prices, expiry dates and days remaining" />
+        </div>
+        <figcaption>FreshKeep's inventory view — expiry-aware rows, search, filters, and a running value total.</figcaption>
+      </figure>
+
+      <section class="section shell" id="problem">
+        <div>
+          <p class="section-kicker">01 / The problem</p>
+          <h2>Food gets wasted quietly.</h2>
+        </div>
+        <div class="section-body">
+          <p>Most households do not set out to waste food. It happens because expiry dates live on packaging, in the fridge, and in your head — and none of those places talk to each other. You buy a second bottle of milk, forget the leftovers, and find them a week too late.</p>
+          <p>Spreadsheets can track this, but they are easy to abandon. Notes apps do not understand dates or quantities. The gap is a tool that opens fast, remembers what you have, and puts the urgent items at the top.</p>
+        </div>
+      </section>
+
+      <section class="section shell">
+        <div>
+          <p class="section-kicker">02 / The approach</p>
+          <h2>Local, fast, and quiet.</h2>
+        </div>
+        <div class="section-body">
+          <p>FreshKeep is a native Windows app written in C++17 against the Win32 API. There is no Electron shell, no .NET runtime, and no web view — the executable talks to Windows directly. It starts instantly and ships without an installer or a runtime dependency.</p>
+          <p>Everything is stored locally in <code>%APPDATA%\FreshKeep</code>. There is no account, no server, and no telemetry. For people who want more protection, the app offers transparent Windows-account encryption (DPAPI) or a passcode vault using AES-256-GCM.</p>
+        </div>
+      </section>
+
+      <section class="section shell">
+        <div>
+          <p class="section-kicker">03 / What it does</p>
+          <h2>The useful details.</h2>
+        </div>
+        <div class="section-body">
+          <ul class="feature-list">
+            <li><strong>Expiry-aware list</strong> — expired items turn red, items expiring within three days turn amber.</li>
+            <li><strong>Use first</strong> — a single view of the items that should be eaten next.</li>
+            <li><strong>Quick add</strong> — type a name and the app suggests a category, unit, and shelf life.</li>
+            <li><strong>Barcode friendly</strong> — a USB scanner can type straight into the form and remembered barcodes fill in details.</li>
+            <li><strong>Bulk add</strong> — enter a whole shopping trip, one item per line.</li>
+            <li><strong>Waste report</strong> — money saved and lost, waste by category, and the most-wasted items.</li>
+            <li><strong>Daily checkouts</strong> — a per-day log of everything marked used or wasted.</li>
+            <li><strong>Import &amp; export</strong> — plain CSV in and out, for spreadsheets and backups.</li>
+            <li><strong>Reminders</strong> — a tray icon with a daily nudge about what expires tomorrow.</li>
+            <li><strong>Backups &amp; undo</strong> — timestamped backups before saves and Ctrl+Z for the last action.</li>
+          </ul>
+        </div>
+      </section>
+
+      <section class="section shell">
+        <div>
+          <p class="section-kicker">04 / Technical notes</p>
+          <h2>Constraints as features.</h2>
+        </div>
+        <div class="section-body">
+          <p>The interface is built from standard Win32 controls with custom row drawing for the inventory list. The whole program is compiled with <code>-mwindows -static-libgcc -static-libstdc++</code>, so a single executable can be copied to another Windows machine and run.</p>
+          <p>Data is written to a temporary file first and then replaces the old file, which avoids half-written saves. On import, rows with a missing name, an invalid date, a non-positive quantity, or an out-of-range price are skipped instead of corrupting the inventory.</p>
+          <p>Encryption is handled through DPAPI or a passcode vault using AES-256-GCM and PBKDF2-HMAC-SHA256 with 600,000 iterations. The recovery key is shown once; the app cannot recover it for you, and it says so plainly.</p>
+        </div>
+      </section>
+
+      <section class="note-band">
+        <div class="shell">
+          <p class="section-kicker">05 / What I learned</p>
+          <div>
+            <p>Building FreshKeep taught me how much product thinking happens outside the UI. The hardest parts were not drawing a window — they were deciding what to do when a save fails, how to make undo predictable, and how to explain encryption honestly.</p>
+            <p>The result is a small tool that does one job well, starts instantly, and keeps a user's data on their own machine. That <span class="accent">restraint</span> is the feature.</p>
+          </div>
+        </div>
+      </section>
+
+      <div class="shell links">
+        <a class="primary" href="https://github.com/Eubulus09/Freshkeep" target="_blank" rel="noopener noreferrer">
+          View source on GitHub
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a href="index.html#work">
+          More work
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+      </div>
+
+      <footer class="footer shell">
+        <span>© 2024-2026 Emmanuel Eubulus</span>
+        <a href="index.html">Back to portfolio <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+      </footer>
+    </main>
+  </body>
+</html>

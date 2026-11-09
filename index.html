@@ -3,9 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="theme-color" content="#111318" />
-    <meta name="description" content="Emmanuel Eubulus is a frontend developer building clean, structured digital spaces." />
+    <meta name="theme-color" content="#101114" />
+    <meta name="description" content="Emmanuel Eubulus is a frontend developer building responsive web interfaces with HTML, CSS, and JavaScript, and desktop software like FreshKeep in C++." />
     <title>Emmanuel Eubulus | Frontend Developer</title>
+    <link rel="canonical" href="https://eubulus09.github.io/eubulus-portfolio/" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Emmanuel Eubulus" />
+    <meta property="og:title" content="Emmanuel Eubulus | Frontend Developer" />
+    <meta property="og:description" content="Frontend developer building responsive web interfaces and desktop software like FreshKeep." />
+    <meta property="og:url" content="https://eubulus09.github.io/eubulus-portfolio/" />
+    <meta property="og:image" content="https://eubulus09.github.io/eubulus-portfolio/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Emmanuel Eubulus | Frontend Developer" />
+    <meta name="twitter:description" content="Frontend developer building responsive web interfaces and desktop software like FreshKeep." />
+    <meta name="twitter:image" content="https://eubulus09.github.io/eubulus-portfolio/og-image.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500&display=swap" rel="stylesheet" />
@@ -44,6 +58,21 @@ button:focus-visible {
   outline: 2px solid var(--blue);
   outline-offset: 3px;
 }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 20;
+  padding: 12px 18px;
+  background: var(--ink);
+  color: white;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.skip-link:focus { left: 16px; top: 16px; }
 
 .shell { width: min(1240px, calc(100% - 96px)); margin: 0 auto; }
 
@@ -331,6 +360,19 @@ h1 em, h2 em { font-family: 'Fraunces', serif; font-weight: 400; }
   transform: scale(1.04);
   filter: saturate(1);
 }
+.project-image.is-screenshot { background: #0f1115; }
+.project-image.is-screenshot img {
+  object-fit: contain;
+  padding: 22px;
+  filter: none;
+}
+.project-card:hover .project-image.is-screenshot img {
+  transform: scale(1.02);
+  filter: none;
+}
+.project-image.is-screenshot::after {
+  background: linear-gradient(180deg, rgba(16,17,20,0.45), transparent 18%);
+}
 .project-image::after {
   content: '';
   position: absolute;
@@ -392,6 +434,25 @@ h1 em, h2 em { font-family: 'Fraunces', serif; font-weight: 400; }
   font-size: 13px;
   line-height: 1.55;
   text-transform: none;
+}
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 20px;
+  margin-top: 16px;
+}
+.project-links a {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--line);
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+.project-links a:hover {
+  color: var(--red);
+  border-bottom-color: var(--red);
 }
 .project-card:nth-child(odd) .project-meta > div > p:not(.project-description) { color: var(--red); }
 .project-card:nth-child(even) .project-meta > div > p:not(.project-description) { color: var(--blue); }
@@ -571,15 +632,31 @@ h1 em, h2 em { font-family: 'Fraunces', serif; font-weight: 400; }
 }
 
     </style>
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Emmanuel Eubulus",
+        "url": "https://eubulus09.github.io/eubulus-portfolio/",
+        "jobTitle": "Frontend Developer",
+        "email": "mailto:eubuluse@gmail.com",
+        "sameAs": [
+          "https://github.com/Eubulus09",
+          "https://www.linkedin.com/in/eubulus-emmanuel-8756a4435"
+        ]
+      }
+    </script>
   </head>
   <body>
     <main>
+      <a class="skip-link" href="#work">Skip to work</a>
       <nav class="nav shell" aria-label="Main navigation">
         <a class="wordmark" href="#top" aria-label="Emmanuel Eubulus home">EE<span>.</span></a>
         <div class="nav-links">
           <a href="#work">Work</a>
           <a href="#about">About</a>
           <a href="#contact">Contact</a>
+          <a href="https://github.com/Eubulus09" target="_blank" rel="noopener noreferrer">GitHub</a>
         </div>
         <a class="availability" href="#contact">
           <span class="status-dot"></span>
@@ -589,9 +666,9 @@ h1 em, h2 em { font-family: 'Fraunces', serif; font-weight: 400; }
 
       <section class="hero shell" id="top">
         <div class="hero-copy reveal-up">
-          <p class="eyebrow"><span>01</span> Frontend developer · HTML, CSS &amp; JavaScript</p>
+          <p class="eyebrow"><span>01</span> Frontend developer · Web &amp; desktop</p>
           <h1>Build with<br /><em>intention.</em></h1>
-          <p class="hero-intro">I build responsive web interfaces with HTML, CSS, and JavaScript, with care for clear layouts and useful details.</p>
+          <p class="hero-intro">I build responsive web interfaces with HTML, CSS, and JavaScript — and focused Windows tools like FreshKeep.</p>
           <a class="circle-link" href="#work" aria-label="Scroll to work">
             <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 7h10v10M7 17 17 7" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
           </a>
@@ -602,7 +679,7 @@ h1 em, h2 em { font-family: 'Fraunces', serif; font-weight: 400; }
             <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?auto=format&fit=crop&w=1500&q=90" alt="Clean modern workspace with a desk and plants" />
             <div class="image-caption">
               <span>Currently focused on</span>
-              <strong>HTML · CSS · JavaScript</strong>
+              <strong>HTML · CSS · JavaScript · C++</strong>
             </div>
           </div>
           <div class="hero-stamp">Code<br />with care</div>
@@ -614,7 +691,7 @@ h1 em, h2 em { font-family: 'Fraunces', serif; font-weight: 400; }
           <p class="section-kicker">02 / A little context</p>
           <div class="intro-statement">Turning complex wireframes into <span>living web realities.</span></div>
           <div class="intro-details">
-            <p>I build responsive interfaces with HTML, CSS, and JavaScript, with a focus on accessible markup, clear page structure, and clean layouts.</p>
+            <p>I build responsive interfaces with HTML, CSS, and JavaScript, with a focus on accessible markup, clear page structure, and clean layouts. Lately I've been building FreshKeep, a Windows app that helps households waste less food.</p>
             <a class="text-link" href="#contact">Let's connect <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
           </div>
         </div>
@@ -630,21 +707,26 @@ h1 em, h2 em { font-family: 'Fraunces', serif; font-weight: 400; }
             <button class="active" type="button" data-filter="all" aria-pressed="true">All</button>
             <button type="button" data-filter="htmlcss" aria-pressed="false">HTML &amp; CSS</button>
             <button type="button" data-filter="js" aria-pressed="false">JavaScript</button>
+            <button type="button" data-filter="cpp" aria-pressed="false">C++</button>
           </div>
         </div>
 
         <div class="project-grid">
-          <article class="project-card project-large" data-category="htmlcss">
-            <div class="project-image">
-              <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?auto=format&fit=crop&w=1400&q=85" alt="An inviting restaurant table set for dinner" />
-              <span class="project-label">Interface concept</span>
+          <article class="project-card project-large" data-category="cpp">
+            <a class="project-image is-screenshot" href="freshkeep.html" aria-label="Read the FreshKeep case study">
+              <img src="src/freshkeep.png" alt="The FreshKeep Windows app showing a food inventory list with expiry dates" loading="lazy" decoding="async" />
+              <span class="project-label">Featured project</span>
               <span class="project-number">01</span>
-            </div>
+            </a>
             <div class="project-meta">
               <div>
-                <h3>The Daily Table</h3>
-                <p>HTML · CSS Grid</p>
-                <p class="project-description">A restaurant landing page concept focused on warm imagery and clear reservations.</p>
+                <h3>FreshKeep</h3>
+                <p>C++17 · Win32 API</p>
+                <p class="project-description">A Windows desktop app that tracks the food in your home, flags what expires next, and turns waste into a clear report.</p>
+                <div class="project-links">
+                  <a href="freshkeep.html">Case study</a>
+                  <a href="https://github.com/Eubulus09/Freshkeep" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+                </div>
               </div>
               <span>2026</span>
             </div>
@@ -739,9 +821,13 @@ h1 em, h2 em { font-family: 'Fraunces', serif; font-weight: 400; }
             <span role="listitem">HTML5</span>
             <span role="listitem">CSS3</span>
             <span role="listitem">JavaScript</span>
+            <span role="listitem">C++17</span>
+            <span role="listitem">Win32 API</span>
             <span role="listitem">Flexbox</span>
             <span role="listitem">CSS Grid</span>
             <span role="listitem">Responsive design</span>
+            <span role="listitem">Accessibility</span>
+            <span role="listitem">Git</span>
           </div>
         </div>
       </section>
@@ -761,6 +847,7 @@ h1 em, h2 em { font-family: 'Fraunces', serif; font-weight: 400; }
             </a>
             <div class="socials">
                <a href="https://www.linkedin.com/in/eubulus-emmanuel-8756a4435" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">IN</a>
+               <a href="https://github.com/Eubulus09" target="_blank" rel="noopener noreferrer" aria-label="GitHub">GH</a>
             </div>
           </div>
         </div>
@@ -768,7 +855,8 @@ h1 em, h2 em { font-family: 'Fraunces', serif; font-weight: 400; }
 
       <footer class="footer shell">
         <span>© 2024-2026 Emmanuel Eubulus</span>
-        <span>Built with HTML &amp; CSS</span>
+        <span>Hand-coded with HTML &amp; CSS</span>
+        <a href="https://github.com/Eubulus09" target="_blank" rel="noopener noreferrer">GitHub <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
         <a href="#top">Back to top <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
       </footer>
     </main>
